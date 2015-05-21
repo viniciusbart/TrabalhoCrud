@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,18 +17,21 @@ import java.util.logging.Logger;
  */
 public class Janela extends javax.swing.JFrame {
     
-    Object [][] dados = { 
-        {"Ana Monteiro", "48 9923-7898", "ana.monteiro@gmail.com"}, 
-        {"João da Silva", "48 8890-3345", "joaosilva@hotmail.com"}, 
-        {"Pedro Cascaes", "48 9870-5634", "pedrinho@gmail.com"} 
-    }; 
-    String [] colunas = {"Nome", "Telefone", "Email"}; 
+    DefaultTableModel tableModel;
+    public void resetTable(){
+        tableModel = new DefaultTableModel(new String[]{"COD","Nome","Preço","Categoria","Quantidade"}, 0);
+        jTable.setModel(tableModel);
+    }
+    
 
     /**
      * Creates new form Janela
      */
     public Janela() {
         initComponents();
+        jTable.getTableHeader().setReorderingAllowed(false);
+        resetTable();
+        Listar.tableModel(tableModel);
     }
 
     /**
@@ -48,11 +52,17 @@ public class Janela extends javax.swing.JFrame {
         txtPreco = new javax.swing.JTextField();
         lblCategoria = new javax.swing.JLabel();
         jComboBox = new javax.swing.JComboBox();
-        btListar = new javax.swing.JButton();
+        btLimpar = new javax.swing.JButton();
         btBuscar = new javax.swing.JButton();
         btInserir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
+        jTable = new javax.swing.JTable() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if(column == 0) return false;
+                else return true;
+            }
+        };
         btAlterar = new javax.swing.JButton();
         lblQtd = new javax.swing.JLabel();
         txtQtd = new javax.swing.JTextField();
@@ -88,7 +98,12 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
-        btListar.setText("Listar");
+        btLimpar.setText("Limpar");
+        btLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimparActionPerformed(evt);
+            }
+        });
 
         btBuscar.setText("Buscar");
 
@@ -145,7 +160,7 @@ public class Janela extends javax.swing.JFrame {
                         .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(132, 132, 132))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btListar)
+                        .addComponent(btLimpar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,13 +185,14 @@ public class Janela extends javax.swing.JFrame {
                     .addComponent(lblQtd)
                     .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btListar)
-                    .addComponent(btBuscar)
-                    .addComponent(btInserir)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCategoria)
-                        .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btLimpar)
+                        .addComponent(btBuscar)
+                        .addComponent(btInserir)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -228,7 +244,17 @@ public class Janela extends javax.swing.JFrame {
             Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
         }
         ConnBD.fechaConexao(cnn);
+        resetTable();
+        this.btLimparActionPerformed(evt);
+        Listar.tableModel(tableModel);
     }//GEN-LAST:event_btInserirActionPerformed
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        txtCod.setText("");
+        txtNome.setText("");
+        txtPreco.setText("");
+        txtQtd.setText("");
+    }//GEN-LAST:event_btLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,7 +296,7 @@ public class Janela extends javax.swing.JFrame {
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btInserir;
-    private javax.swing.JButton btListar;
+    private javax.swing.JButton btLimpar;
     private javax.swing.JComboBox jComboBox;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,7 +1,7 @@
 package principal;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -51,7 +51,7 @@ public class ConnBD {
         }
     }
 
-    public static void fechaConexao(Connection conn, PreparedStatement stmt) {
+    public static void fechaConexao(Connection conn, Statement stmt) {
         try {
             if (conn != null) {
                 fechaConexao(conn);
@@ -65,7 +65,7 @@ public class ConnBD {
         }
     }
 
-    public static void fechaConexao(Connection conn, PreparedStatement stmt, ResultSet rs) {
+    public static void fechaConexao(Connection conn, Statement stmt, ResultSet rs) {
         try {
             if (conn != null || stmt != null) {
                 fechaConexao(conn, stmt);

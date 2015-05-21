@@ -70,7 +70,7 @@
                           <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="btListar" min="-2" max="-2" attributes="0"/>
+                          <Component id="btLimpar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btBuscar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -100,13 +100,15 @@
                       <Component id="txtQtd" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btListar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btInserir" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="lblCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btInserir" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -172,10 +174,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btListar">
+        <Component class="javax.swing.JButton" name="btLimpar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Listar"/>
+            <Property name="text" type="java.lang.String" value="Limpar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLimparActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btBuscar">
           <Properties>
@@ -209,6 +214,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable() {&#xd;&#xa;            @Override&#xd;&#xa;            public boolean isCellEditable(int row, int column) {&#xd;&#xa;                if(column == 0) return false;&#xd;&#xa;                else return true;&#xd;&#xa;            }&#xd;&#xa;        };"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

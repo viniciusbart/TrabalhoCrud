@@ -20,8 +20,6 @@ public class DbInsert {
             Statement stmt = cnn.createStatement();
             stmt.executeUpdate("INSERT INTO PRODUTOS (`cod`,`nome`,`preco`,`qtd`,`categoria`) VALUES "
                     + "('"+cod+"','"+nome+"','"+preco+"','"+quantidade+"','"+categoria+"')");
-            /*stmt.executeUpdate("INSERT INTO PRODUTOS VALUES "
-                    + "("+cod+","+nome+","+preco+","+quantidade+","+categoria+")");*/
         } catch (Exception e) {
             throw new SQLException("Erro ao inserir dados. " + e.getMessage());
         }
